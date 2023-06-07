@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table th:each="pet : ${info.list}">
+    <tr>
+        <td th:text="${pet.getNumber()}"></td>
+        <td th:text="${pet.getNames()}"></td>
+        <td th:text="${pet.getName()}"></td>
+        <td th:text="${pet.getGender()==0?'母':'公'}"></td>
+        <td th:text="${pet.getAge()}"></td>
+        <td th:text="${pet.getStatus()}"></td>
+        <td th:text="${#dates.format(pet.getDate(),'yyyy-MM-dd')}"></td>
+        <td th:text="${pet.getBed()==0?'住院':'不住'}"></td>
+    </tr>
+</table>
+</body>
+</html>

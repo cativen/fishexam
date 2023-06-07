@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fishexam.mapper.OperationPlusMapper">
+    <insert id="intertOperationPlus">
+        insert into operationplus (operationplus_number,operationplus_date,operationplus_doctor,operationplus_msg,operationplus_demo1) values (#{number},#{date},#{doctor},#{msg},#{petsName});
+    </insert>
+
+
+    <select id="selectOperationPlus" resultType="com.fishexam.pojo.OperationPlusPojo">
+        select * from operationplus;
+    </select>
+    <select id="selectDateAndMsgByName" resultType="com.fishexam.pojo.OperationPlusPojo">
+        select operationplus_date,operationplus_msg,operationplus_demo1 from operationplus where operationplus_doctor=#{name};
+    </select>
+
+
+</mapper>

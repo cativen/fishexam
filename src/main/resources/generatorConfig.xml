@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration
+		PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+		"http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+
+<generatorConfiguration>
+	<!--添加数据库的连接jar包的位置，在项目的左边最下的external libraries中找到复制全路径-->
+<!--	<classPathEntry location="D:\jar\mybatis\mysql-connector-java-5.1.35.jar"/>-->
+
+	<context id="testTables" targetRuntime="MyBatis3">
+		<commentGenerator>
+			<!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+
+		<!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+						connectionURL="jdbc:mysql://localhost:3306/fish_exam"
+						userId="root"
+						password="123456">
+		</jdbcConnection>
+
+		<!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL 和
+            NUMERIC 类型解析为java.math.BigDecimal -->
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<!-- targetProject:生成PO类的位置 -->
+		<javaModelGenerator targetPackage="com.fishexam.pojo"
+							targetProject=".\src\main\java">
+			<!-- enableSubPackages:是否让schema作为包的后缀 -->
+			<property name="enableSubPackages" value="false" />
+			<!-- 从数据库返回的值被清理前后的空格 -->
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<!-- targetProject:mapper映射文件生成的位置 -->
+		<sqlMapGenerator targetPackage="com.fishexam.mapper"
+						 targetProject=".\src\main\java">
+			<!-- enableSubPackages:是否让schema作为包的后缀 -->
+			<property name="enableSubPackages" value="false" />
+		</sqlMapGenerator>
+
+		<!-- targetPackage：mapper接口生成的位置 -->
+		<javaClientGenerator type="XMLMAPPER"
+							 targetPackage="com.fishexam.mapper"
+							 targetProject=".\src\main\java">
+			<!-- enableSubPackages:是否让schema作为包的后缀 -->
+			<property name="enableSubPackages" value="false" />
+		</javaClientGenerator>
+
+		<!-- 指定在数据库中已经存在的表名 -->
+		<table schema="fish_exam" tableName="bus_answer" domainObjectName="EntityName"
+			   enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+			   enableSelectByExample="false" selectByExampleQueryId="false" >
+			<property name="useActualColumnNames" value="true"/>
+		</table>
+		<table schema="fish_exam" tableName="bus_info" domainObjectName="EntityName"
+			   enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+			   enableSelectByExample="false" selectByExampleQueryId="false" >
+			<property name="useActualColumnNames" value="true"/>
+		</table>
+		<table schema="fish_exam" tableName="bus_main" domainObjectName="EntityName"
+			   enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+			   enableSelectByExample="false" selectByExampleQueryId="false" >
+			<property name="useActualColumnNames" value="true"/>
+		</table>
+		<table schema="fish_exam" tableName="bus_question" domainObjectName="EntityName"
+			   enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+			   enableSelectByExample="false" selectByExampleQueryId="false" >
+			<property name="useActualColumnNames" value="true"/>
+		</table>
+		<table schema="fish_exam" tableName="bus_subject" domainObjectName="EntityName"
+			   enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+			   enableSelectByExample="false" selectByExampleQueryId="false" >
+			<property name="useActualColumnNames" value="true"/>
+		</table>
+		<table schema="fish_exam" tableName="sys_userinfo" domainObjectName="EntityName"
+			   enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+			   enableSelectByExample="false" selectByExampleQueryId="false" >
+			<property name="useActualColumnNames" value="true"/>
+		</table>
+<!--		<table schema="studentboss" tableName="choiceqst" enableCountByExample="false"-->
+<!--			   enableUpdateByExample="false" enableDeleteByExample="false"-->
+<!--			   enableSelectByExample="false" selectByExampleQueryId="false">-->
+<!--            <columnOverride column="ChoiceQst_Info" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+<!--            <columnOverride column="ChoiceQst_OP1" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+<!--            <columnOverride column="ChoiceQst_OP2" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+<!--            <columnOverride column="ChoiceQst_OP3" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+<!--            <columnOverride column="ChoiceQst_OP4" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+<!--        </table>-->
+<!--		<table schema="studentboss" tableName="admin" enableCountByExample="false"-->
+<!--			   enableUpdateByExample="false" enableDeleteByExample="false"-->
+<!--			   enableSelectByExample="false" selectByExampleQueryId="false">-->
+<!--		</table>-->
+	</context>
+</generatorConfiguration>

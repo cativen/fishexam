@@ -1,0 +1,682 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" th:href="@{/assets/media/image/favicon.png}"/>
+    <!-- Plugin styles -->
+    <link rel="stylesheet" th:href="@{/vendors/bundle.css}" type="text/css">
+    <!-- Datepicker -->
+    <link rel="stylesheet" th:href="@{/vendors/datepicker/daterangepicker.css}">
+    <!-- Slick -->
+    <link rel="stylesheet" href="/vendors/slick/slick.css">
+    <link rel="stylesheet" href="/vendors/slick/slick-theme.css">
+    <!-- Vmap -->
+    <link rel="stylesheet" href="/vendors/vmap/jqvmap.min.css">
+    <!-- App styles -->
+    <link rel="stylesheet" href="/assets/css/app.min.css" type="text/css">
+</head>
+<body>
+
+<div class="navigation">
+
+    <!-- begin::logo -->
+    <div id="logo">
+        <a href="/index" style="margin-top: 120px;">
+            <img class="logo" src="assets/media/image/cat.png" alt="logo" style="height: 180px;">
+            <img class="logo-sm" src="assets/media/image/logo-sm.png" alt="small logo">
+            <img class="logo-dark" src="assets/media/image/logo-dark.png" alt="dark logo">
+        </a>
+    </div>
+
+    <header class="navigation-header" style="margin-top: 130px;">
+        <figure class="avatar avatar-state-success">
+            <a href="/index">
+                <img src="assets/media/image/user/cat_man.png" class="rounded-circle" alt="image">
+            </a>
+        </figure>
+        <div>
+            <h5>[[${session.user}]]</h5>
+            <p class="text-muted">session中的管理等级</p>
+            <ul class="nav">
+                <li class="nav-item">
+                    <a href="/index" class="btn nav-link bg-info-bright" title="人员管理" data-toggle="tooltip">
+                        <i data-feather="user"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="btn nav-link bg-success-bright" title="设置" data-toggle="tooltip">
+                        <i data-feather="settings"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/logout}" class="btn nav-link bg-danger-bright" title="退出" data-toggle="tooltip">
+                        <i data-feather="log-out"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <div class="navigation-menu-body">
+        <ul>
+            <li class="navigation-divider">Main</li>
+            <li class="open">
+                <a href="/index">
+                    <i class="nav-link-icon" data-feather="bar-chart-2"></i>
+                    <span>预约登记</span>
+                </a>
+                <ul>
+                    <li><a class="active" th:href="@{/toPeople}">员工信息</a></li>
+                    <li><a class="active" th:href="@{/washRegister}">登记</a></li>
+                    <li><a class="active" th:href="@{/customerList}">客户列表</a></li>
+                </ul>
+            </li>
+            <!--<li>
+                <a th:href="@{/personChat}">
+                    <i class="nav-link-icon" data-feather="message-circle"></i>
+                    <span>聊天（还没写）</span>
+                    <span class="badge badge-danger">2</span>
+                </a>
+            </li>-->
+           <!-- <li>
+                <a href="inbox.html">
+                    <i class="nav-link-icon" data-feather="mail"></i>
+                    <span>邮箱</span>
+                    <span class="badge badge-success">2</span>
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/toDoctors}">
+                    <i class="nav-link-icon" data-feather="check-circle"></i>
+                    <span>医生排班</span>
+                    <span class="badge badge-warning">2</span>
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/doctorBed}">
+                    <i class="nav-link-icon" data-feather="file"></i>
+                    <span>手术时间安排</span>
+                </a>
+            </li>
+            <li>
+                <a href="calendar.html">
+                    <i class="nav-link-icon" data-feather="moon"></i>
+                    <span>人员调休</span>
+                </a>
+            </li>
+            <li>
+                <a href="calendar.html">
+                    <i class="nav-link-icon" data-feather="calendar"></i>
+                    <span>打卡情况</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="nav-link-icon" data-feather="menu"></i>
+                    <span>工资奖金</span>
+                </a>
+                <ul>
+                    <li>
+                        <a href="#">Menu Level</a>
+                        <ul>
+                            <li>
+                                <a href="#">Menu Level </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>-->
+        </ul>
+    </div>
+    <!-- end::navigation menu -->
+
+</div>
+<!-- end::navigation -->
+
+<!-- begin::main -->
+<div id="main">
+
+    <!-- begin::header -->
+    <div class="header">
+<!--        手机
+                &lt;!&ndash; begin::header left &ndash;&gt;
+                <ul class="navbar-nav">
+
+                    &lt;!&ndash; begin::navigation-toggler &ndash;&gt;
+                    <li class="nav-item navigation-toggler">
+                        <a href="#" class="nav-link">
+                            <i data-feather="menu"></i>
+                        </a>
+                    </li>
+                    &lt;!&ndash; end::navigation-toggler &ndash;&gt;
+
+                    &lt;!&ndash; begin::header-logo &ndash;&gt;
+                    <li class="nav-item" id="header-logo">
+                        <a href="index.html">
+                            <img class="logo" src="assets/media/image/logo.png" alt="logo">
+                            <img class="logo-sm" src="assets/media/image/logo-sm.png" alt="small logo">
+                            <img class="logo-dark" src="assets/media/image/logo-dark.png" alt="dark logo">
+                        </a>
+                    </li>
+                    &lt;!&ndash; end::header-logo &ndash;&gt;
+                </ul>
+         end::header left -->
+
+        <!-- begin::header-right -->
+        <div class="header-right">
+            <ul class="navbar-nav">
+
+                <!-- begin::search-form -->
+                <li class="nav-item search-form">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <form>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-default" type="button">
+                                            <i data-feather="search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </li>
+                <!-- end::search-form -->
+
+                <!-- begin::header minimize/maximize -->
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link" title="Fullscreen" data-toggle="fullscreen">
+                        <i class="maximize" data-feather="maximize"></i>
+                        <i class="minimize" data-feather="minimize"></i>
+                    </a>
+                </li>
+                <!-- end::header minimize/maximize -->
+
+                <!-- begin::header app list -->
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link" title="Apps" data-toggle="dropdown">
+                        <i data-feather="grid"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-big">
+                        <div class="p-3">
+                            <h6 class="text-uppercase font-size-11 mb-3">在线工具</h6>
+                            <div class="row row-xs">
+                                <div class="col-6">
+                                    <a href="/index">
+                                        <div class="text-uppercase font-size-11 p-3 border-radius-1 border text-center mb-3">
+                                            <i class="text-success width-23 height-23 nav-link-icon"
+                                               data-feather="music"></i>
+                                            <div class="mt-2">大厅音乐</div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-6">
+                                    <a href="/index">
+                                        <div class="text-uppercase font-size-11 p-3 border-radius-1 border text-center mb-3">
+                                            <i class="text-info width-23 height-23" data-feather="mail"></i>
+                                            <div class="mt-2">群发邮件</div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-6">
+                                    <a href="/index">
+                                        <div class="text-uppercase font-size-11 p-3 border-radius-1 border text-center">
+                                            <i class="text-warning width-23 height-23" data-feather="calendar"></i>
+                                            <div class="mt-2">导出Excel</div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-6">
+                                    <a th:href="@{/index}">
+                                        <div class="text-uppercase font-size-11 p-3 border-radius-1 border text-center">
+                                            <i class="text-danger width-23 height-23" data-feather="file"></i>
+                                            <div class="mt-2">添加信息</div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <!-- end::header app list -->
+
+                <!-- 提醒事项 -->
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link nav-link-notify" title="Messages" data-toggle="dropdown">
+                        <i data-feather="message-circle"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-big">
+                        <div class="p-4 text-center" data-backround-image="assets/media/image/image1.png">
+                            <h6 class="mb-1">提醒事项</h6>
+                            <small class="font-size-11 opacity-7" th:text="${messageStatusSize+'条提示信息'}">2条提示信息</small>
+                        </div>
+                        <div>
+                            <table>
+                                <tbody>
+
+
+                                </tbody>
+                            </table>
+                            <ul class="list-group list-group-flush">
+                                <tr th:each="msg : ${msgs}">
+                                    <li>
+                                        <a th:href="@{#}" class="list-group-item d-flex hide-show-toggler">
+                                            <div>
+                                                <figure class="avatar avatar-sm m-r-15">
+                                                    <img src="assets/media/image/user/man_avatar1.jpg"
+                                                         class="rounded-circle" alt="user">
+                                                </figure>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <p class="mb-0 line-height-20 d-flex justify-content-between">
+                                               <!-- <td th:text="${msg.getType()==1?'洗护':msg.getType()==1?'洗护':'灿城'}"></td>-->
+                                              <!--  <i title="Make unread" data-toggle="tooltip"
+                                                   class="hide-show-toggler-item fa font-size-11"
+                                                   th:onclick="read([[${msg.getRegisterId()}]])">已读</i>
+                                                </p>-->
+                                                <td th:if="${msg.getType()==1}">洗护提醒</td>
+                                                <td th:if="${msg.getType()==2}">驱虫提醒</td>
+                                                <td th:if="${msg.getType()==3}">购粮提醒</td>
+                                                <td th:if="${msg.getType()==4}">寄养提醒</td>
+                                                <div class="small text-muted">
+                                                    <span></span>
+                                                    <span class="mr-2"
+                                                          th:text="${'提醒'+msg.getPetName()+'的主人'+msg.getName()+'，'+#dates.format(msg.getWashDate(),'yyyy-MM-dd')+'带猫咪来'}">下午 2:30</span>
+                                                   <!--<span th:text="${msg.getName()}+'，'">哈士奇绝育手术</span>-->
+                                                   <!-- <span th:text="${#dates.format(msg.getWashDate(),'yyyy-MM-dd')}">哈士奇绝育手术</span>-->
+                                                    <!--<span>带猫咪来</span>-->
+                                                    <span th:if="${msg.getType()==1}">洗护</span>
+                                                    <span th:if="${msg.getType()==2}">驱虫</span>
+                                                    <span th:if="${msg.getType()==3}">购粮</span>
+                                                    <span th:if="${msg.getType()==4}">寄养</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+
+                                </tr>
+                            <!--    <li class="text-divider small pb-2 pl-3 pt-3">
+                                    <span>已读</span>
+                                </li>-->
+                               <!-- <tr th:each="msg : ${msgs}" th:switch="${msg.getAdvanceDay()}">
+                                    <li th:case="1">
+                                        <a href="#" class="list-group-item d-flex hide-show-toggler">
+                                            <div>
+                                                <figure class="avatar avatar-sm m-r-15">
+                                                    <img src="assets/media/image/user/man_avatar2.jpg"
+                                                         class="rounded-circle" alt="user">
+                                                </figure>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <p class="mb-0 line-height-20 d-flex justify-content-between"
+                                                   th:text="${msg.getName()}">
+                                                    马经理
+                                                </p>
+                                                <div class="small text-muted">
+                                                    <span class="mr-2"
+                                                          th:text="${msg.getWashDate()}">昨天上午 10:00</span>
+                                                    <span th:text="${msg.getPetName()}">面试三名实习护士</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </tr>-->
+                            </ul>
+                        </div>
+                        <div class="p-2 text-right">
+                            <ul class="list-inline small">
+                                <li class="list-inline-item">
+                                    <a th:href="@{/index}">查看所有</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <!-- end::header messages dropdown -->
+
+                <!-- begin::header notification dropdown -->
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link nav-link-notify" title="Notifications" data-toggle="dropdown">
+                        <i data-feather="bell"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-big">
+                        <div class="p-4 text-center" data-backround-image="assets/media/image/image1.png">
+                            <h6 class="mb-1">Notifications</h6>
+                            <small class="font-size-11 opacity-7">1 unread notifications</small>
+                        </div>
+                        <div>
+                            <ul class="list-group list-group-flush">
+                                <li>
+                                    <a href="#" class="list-group-item d-flex hide-show-toggler">
+                                        <div>
+                                            <figure class="avatar avatar-sm m-r-15">
+                                                <span class="avatar-title bg-success-bright text-success rounded-circle">
+                                                    <i class="ti-user"></i>
+                                                </span>
+                                            </figure>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <p class="mb-0 line-height-20 d-flex justify-content-between">
+                                                New customer registered
+                                                <i title="Make unread" data-toggle="tooltip"
+                                                   class="hide-show-toggler-item fa fa-circle-o font-size-11"></i>
+                                            </p>
+                                            <span class="text-muted small">20 min ago</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="text-divider small pb-2 pl-3 pt-3">
+                                    <span>Old notifications</span>
+                                </li>
+                                <li>
+                                    <a href="#" class="list-group-item d-flex hide-show-toggler">
+                                        <div>
+                                            <figure class="avatar avatar-sm m-r-15">
+                                                <span class="avatar-title bg-warning-bright text-warning rounded-circle">
+                                                    <i class="ti-package"></i>
+                                                </span>
+                                            </figure>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <p class="mb-0 line-height-20 d-flex justify-content-between">
+                                                New Order Recieved
+                                                <i title="Mark as read" data-toggle="tooltip"
+                                                   class="hide-show-toggler-item fa fa-check font-size-11"></i>
+                                            </p>
+                                            <span class="text-muted small">45 sec ago</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#"
+                                       class="list-group-item d-flex align-items-center hide-show-toggler">
+                                        <div>
+                                            <figure class="avatar avatar-sm m-r-15">
+                                                <span class="avatar-title bg-danger-bright text-danger rounded-circle">
+                                                    <i class="ti-server"></i>
+                                                </span>
+                                            </figure>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <p class="mb-0 line-height-20 d-flex justify-content-between">
+                                                Server Limit Reached!
+                                                <i title="Make unread" data-toggle="tooltip"
+                                                   class="hide-show-toggler-item fa fa-check font-size-11"></i>
+                                            </p>
+                                            <span class="text-muted small">55 sec ago</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#"
+                                       class="list-group-item d-flex align-items-center hide-show-toggler">
+                                        <div>
+                                            <figure class="avatar avatar-sm m-r-15">
+                                                <span class="avatar-title bg-info-bright text-info rounded-circle">
+                                                    <i class="ti-layers"></i>
+                                                </span>
+                                            </figure>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <p class="mb-0 line-height-20 d-flex justify-content-between">
+                                                Apps are ready for update
+                                                <i title="Make unread" data-toggle="tooltip"
+                                                   class="hide-show-toggler-item fa fa-check font-size-11"></i>
+                                            </p>
+                                            <span class="text-muted small">Yesterday</span>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="p-2 text-right">
+                            <ul class="list-inline small">
+                                <li class="list-inline-item">
+                                    <a href="#">Mark All Read</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <!-- end::header notification dropdown -->
+            </ul>
+
+            <!-- begin::mobile header toggler -->
+            <ul class="navbar-nav d-flex align-items-center">
+                <li class="nav-item header-toggler">
+                    <a href="#" class="nav-link">
+                        <i data-feather="arrow-down"></i>
+                    </a>
+                </li>
+            </ul>
+            <!-- end::mobile header toggler -->
+        </div>
+        <!-- end::header-right -->
+    </div>
+    <!-- end::header -->
+
+    <!-- begin::main-content -->
+    <div class="main-content">
+
+        <!-- begin::container -->
+        <div class="container">
+
+            <div class="page-header">
+                <h4>管理员</h4>
+                <small class="">你好, <span class="text-primary">[[${session.user}]]</span></small>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h6 class="card-title d-md-flex justify-content-between">
+                                        预约记录
+                                        <div class="dropdown" style="margin-right: 50px;">
+                                           <!-- <button class="btn dropdown-toggle" type="button" id="dropdownMenu2"
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                日期选择
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <span class="dropdown-item-text"><b><a th:href="@{/index}">默认排序</a></b></span>
+                                                <a class="dropdown-item" th:href="@{/date(date=7)}">过去7天</a>
+                                                <a class="dropdown-item" th:href="@{/date(date=30)}">过去30天</a>
+                                                <a class="dropdown-item" th:href="@{/date(date=90)}">更早</a>
+                                            </div>-->
+                                        </div>
+                                    </h6>
+                                    <div class="col-md-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover mb-0">
+                                                <thead class="thead-light">
+                                                <tr>
+                                                    <th><b>编号</b></th>
+                                                    <th><b>姓名</b></th>
+                                                    <th><b>宠物昵称</b></th>
+                                                    <th><b>登记电话号码</b></th>
+                                                    <th><b>服务类型</b></th>
+                                                    <th><b>本次服务日期</b></th>
+                                                    <th><b>下次预约日期</b></th>
+                                                    <th><b>时间跨度</b></th>
+                                                    <!--<th class="text-right">操作</th>-->
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr th:each="resgiter : ${washRegisters}">
+                                                    <td th:text="${resgiter.getWashRegisterNumber()}"></td>
+                                                    <td th:text="${resgiter.getName()}"></td>
+                                                    <td th:text="${resgiter.getPetName()}"></td>
+                                                    <td th:text="${resgiter.getPhone()}"></td>
+                                                    <td th:text="${resgiter.getType()==1?'洗护':'驱虫'}"></td>
+                                                    <td th:text="${#dates.format(resgiter.getServiceDate(),'yyyy-MM-dd')}"></td>
+                                                    <td th:text="${#dates.format(resgiter.getWashDate(),'yyyy-MM-dd')}"></td>
+                                                    <td th:text="${resgiter.getTimeSpan()}"></td>
+                                                   <!-- <td class="text-right">
+                                                        <button class="btn btn-success btn-sm">编辑</button>
+                                                    </td>-->
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <br>
+                                            <nav aria-label="Page navigation example">
+                                                <ul class="pagination justify-content-center" th:switch="${page}" th:value="${totalPage}" id="pagefist">
+                                                    <div   style="display:block" th:if="${totalPage>1}">
+                                                    <li class="page-item disabled" th:if="${page==1}">
+                                                        <a class="page-link" th:href="@{/index(page=${page}-1)}" tabindex="-1"
+                                                           aria-disabled="true">Previous</a>
+                                                    </li>
+                                                    <li class="page-item" th:if="${page!=1}">
+                                                        <a class="page-link" th:href="@{/index(page=${page}-1)}" tabindex="-1"
+                                                           aria-disabled="true">Previous</a>
+                                                    </li>
+                                                    </div>
+
+                                                    <div   style="display:block" th:if="${totalPage>=1}">
+
+                                                        <li class="page-item active" th:case="1"> <a class="page-link"
+                                                                                                     th:href="@{/index(page=1)}">1</a>
+                                                        </li>
+
+                                                        <li class="page-item" th:if="${page!=1}"><a class="page-link"
+                                                                                                    th:href="@{/index(page=1)}">1</a>
+                                                        </li>
+                                                    </div>
+
+
+                                                    <div   style="display:block" th:if="${totalPage>=2}">
+                                                    <li class="page-item active" th:case="2"><a class="page-link"
+                                                                                    th:href="@{/index(page=2)}">2</a>
+                                                    </li>
+                                                    <li class="page-item" th:if="${page!=2}"><a class="page-link"
+                                                                                    th:href="@{/index(page=2)}">2</a>
+                                                    </li>
+                                                    </div>
+
+                                                    <div   style="display:block" th:if="${totalPage>=3}">
+                                                    <li class="page-item active" th:case="3"><a class="page-link"
+                                                                                    th:href="@{/index(page=3)}">3</a>
+                                                    </li>
+                                                    <li class="page-item" th:if="${page!=3}"><a class="page-link"
+                                                                                    th:href="@{/index(page=3)}">3</a>
+                                                    </li>
+                                                    </div>
+
+                                                    <div   style="display:block" th:if="${totalPage>=4}">
+                                                    <li class="page-item active" th:case="4"><a class="page-link"
+                                                                                    th:href="@{/index(page=4)}">4</a>
+                                                    </li>
+                                                    <li class="page-item" th:if="${page!=4}"><a class="page-link"
+                                                                                    th:href="@{/index(page=4)}">4</a>
+                                                    </li>
+                                                    </div>
+
+                                                    <div   style="display:block" th:if="${totalPage>=5}">
+                                                    <li class="page-item active" th:case="5"><a class="page-link"
+                                                                                    th:href="@{/index(page=5)}">5</a>
+                                                    </li>
+                                                    <li class="page-item" th:if="${page!=5}"><a class="page-link"
+                                                                                    th:href="@{/index(page=5)}">5</a>
+                                                    </li>
+                                                    </div>
+
+                                                    <div   style="display:block" th:if="${page<totalPage}">
+                                                    <li class="page-item">
+                                                        <a class="page-link" th:href="@{/index(page=${page}+1)}">next</a>
+                                                    </li>
+                                                    </div>
+
+                                                    <div   style="display:block" th:if="${page!=1}">
+                                                    <li class="page-item">
+                                                        <a class="page-link" th:href="@{/index(page=${totalPage})}">尾页</a>
+                                                    </li>
+                                                    </div>
+                                                </ul>
+                                            </nav>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- end::container -->
+
+</div>
+
+
+</div>
+<!-- end::main -->
+
+<!-- Plugin scripts -->
+<script src="vendors/bundle.js"></script>
+
+<!-- Chartjs -->
+<script src="vendors/charts/chartjs/chart.min.js"></script>
+
+<!-- Apex chart -->
+<script src="vendors/charts/apex/apexcharts.min.js"></script>
+
+<!-- Circle progress -->
+<script src="vendors/circle-progress/circle-progress.min.js"></script>
+
+<!-- Peity -->
+<script src="vendors/charts/peity/jquery.peity.min.js"></script>
+<script src="assets/js/examples/charts/peity.js"></script>
+
+<!-- Datepicker -->
+<script src="vendors/datepicker/daterangepicker.js"></script>
+
+<!-- Slick -->
+<script src="vendors/slick/slick.min.js"></script>
+
+<!-- Vamp -->
+<script src="vendors/vmap/jquery.vmap.min.js"></script>
+<script src="vendors/vmap/maps/jquery.vmap.usa.js"></script>
+<script src="assets/js/examples/vmap.js"></script>
+
+<!-- Dashboard scripts -->
+<script src="assets/js/examples/dashboard.js"></script>
+<div class="colors"> <!-- To use theme colors with Javascript -->
+    <div class="bg-primary"></div>
+    <div class="bg-primary-bright"></div>
+    <div class="bg-secondary"></div>
+    <div class="bg-secondary-bright"></div>
+    <div class="bg-info"></div>
+    <div class="bg-info-bright"></div>
+    <div class="bg-success"></div>
+    <div class="bg-success-bright"></div>
+    <div class="bg-danger"></div>
+    <div class="bg-danger-bright"></div>
+    <div class="bg-warning"></div>
+    <div class="bg-warning-bright"></div>
+</div>
+
+<!-- App scripts -->
+<script src="assets/js/app.min.js"></script>
+
+<script>
+    /*已读消息*/
+    function read(status) {
+        $.post({
+            url: "updateStatus",
+            data: {"status": status},
+        });
+    }
+
+    function active(status) {
+        alert(status);
+    }
+</script>
+</body>
+</html>

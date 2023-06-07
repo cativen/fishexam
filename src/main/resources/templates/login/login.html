@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en_US" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.thymeleaf.org/thymeleaf-extras-shiro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+   <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">-->
+   <!-- <link rel="stylesheet" src="css/bootstrap.min2.css">-->
+    <!--<script src="css/bootstrap.min2.css"></script>-->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"></script>
+    <link href="https://cdn.bootcdn.net/ajax/libs/toastr.js/2.1.4/toastr.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcdn.net/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,700" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}">
+    <style>
+        .bg-img {
+            background-image: url(/image/4.jpg);
+            background-size: cover;
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
+    </style>
+    <title>Login</title>
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function login() {
+        var rememberMe = (!document.getElementById('rememberMe').checked ? false : true);
+        $.post({
+            url: "login",
+            data: {"username": $("#username").val(), "password": $("#password").val(), "rememberMe": rememberMe},
+            success: function (data) {
+                if (data.toString() == "success") {
+                    window.location.href = "index";
+                } else {
+                    document.getElementById('loginFail').innerText = data.toString();
+                    document.getElementById('password').value = "";
+                }
+            }
+        });
+    }
+
+
+    function register() {
+        console.log("reg...")
+        let codes = $("#code").val();
+        let phones = $("#phone").val();
+        let names = $("#register-username").val();
+        let pass = $("#register-password").val();
+        if (codes != "" && codes.length != 0 && phones != "" && phones.length != 0 && names != "" && names.length != 0 && pass != "" && pass.length != 0) {
+            if (codes == code) {
+                $.post({
+                    url: "register",
+                    data: {"username": names,"password":pass,"phoneOrEmail":phones},
+                    success: function (data) {
+                        if (data.toString() == "success") {
+                            toastr.success("注册成功");
+                            return;
+                        } else {
+                            toastr.error("注册失败，未知错误");
+                            return;
+                        }
+                    }
+                });
+            } else {
+                toastr.error("验证码错误");
+                return;
+            }
+        }else {
+            toastr.error("值为空值");
+            return;
+        }
+    }
+
+
+    function captcha() {
+        let status = $("#button-captcha").attr('disabled');
+        let phonev = $("#phone").val();
+        if (phonev == null || phonev.length == 0 || phonev == "") {
+            alert("phone is null");
+            return;
+        } else {
+            $.post({
+                url: "captchaCode",
+                data: {"phone": phonev},
+                success: function (data) {
+                    if (data.toString().length == 6) {
+                        code = data.toString();
+                        toastr.success("发送成功");
+                        captchas();
+                        return;
+                    } else {
+                        toastr.error("发送失败");
+                        return;
+                    }
+                }
+            });
+        }
+    }
+</script>
+<!-- Backgrounds -->
+
+<div id="login-bg" class="container-fluid">
+
+    <div class="bg-img">
+
+    </div>
+    <div class="bg-color"></div>
+</div>
+
+<!-- End Backgrounds -->
+
+<div class="container" id="login">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="login">
+
+                <h1 th:text="#{login.tip}">Login</h1>
+                <div style="width: 450px; margin: auto;">
+                    <!-- Loging form -->
+                    <div class="form-group">
+                        <input type="email" class="form-control" id="username" th:placeholder="#{login.username}"
+                               name="username">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" id="password" th:placeholder="#{login.password}"
+                               name="password">
+                    </div>
+                    <div class="form-check">
+                        <label class="switch">
+                            <input type="checkbox" name="rememberMe" id="rememberMe">
+                            <span class="slider round" for="rememberMe" onclick="test()"></span>
+                        </label>
+                        <label class="form-check-label" id="OR">[[#{login.remember}]]</label>
+                        <label class="forgot-password"><a href="">[[#{login.forget}]]</a></label>
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btns btn-lg btn-block btn-success" onclick="login()">
+                        [[#{login.btn}]]
+                    </button>
+                    <br>
+                    <p style="color: red;" id="loginFail"></p>
+                </div>
+              <!--  <a class="" th:href="@{/toLogin(l='zc_CN')}">中文</a>
+                <a class="" th:href="@{/toLogin(l='en_US')}">English</a>
+                <a href="" data-toggle="modal" data-target="#exampleModalCenter">无法登录？</a>-->
+                <!-- Button trigger modal -->
+
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                     aria-labelledby="exampleModalCenterTitle"
+                     aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalCenterTitle">注册</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form class="needs-validation" novalidate>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="register-username"
+                                           th:placeholder="#{login.username}" name="register-username" required>
+                                    <br>
+                                    <input type="text" class="form-control" id="register-password"
+                                           th:placeholder="#{login.password}" pattern="[A-Za-z0-9]{6,30}"
+                                           name="register-password" required>
+                                    <div class="invalid-feedback">密码长度至少为六位,只能是大小写字母或数字！</div>
+                                    <br>
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" th:placeholder="#{login.phone}"
+                                               aria-label="Recipient's username" aria-describedby="button-captcha"
+                                               id="phone" name="phoneOrEmail">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-secondary" type="button" id="button-captcha"
+                                                    onclick="captcha()">
+                                                发送验证码
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <input type="text" class="form-control " id="code"
+                                           th:placeholder="#{login.captcha}"
+                                           name="code">
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="invalidCheck"
+                                               required><a href="login.html" data-toggle="modal"
+                                                           data-target="#zhuyuPets">《煮鱼宠物注册协议》</a>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="zhuyuPets" tabindex="-1" role="dialog"
+                                             aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalScrollableTitle">Modal
+                                                            title</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        巴拉巴拉各种协议
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            注册前必须阅读并确认协议
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary " data-dismiss="modal">关闭</button>
+                                    <button type="button" class="btn btn-primary" onclick="register()">注册</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script>
+    function test() {
+        state = (!document.getElementById('rememberMe').checked ? 1 : 0);
+    }
+
+    //倒计时
+    var time = 10;
+
+    function captchas() {
+        if (time != 0) {
+            document.getElementById("button-captcha").innerHTML = "重新发送 " + time;
+        } else {
+            document.getElementById("button-captcha").innerHTML = "重新发送";
+        }
+        $("#button-captcha").attr('disabled', true);
+        if (time === 0) {
+            $("#button-captcha").attr('disabled', false);
+            time = 60;
+            return;
+        } else {
+            time--;
+            $('#time i').text(time);
+        }
+        setTimeout(function () {
+            captchas();
+        }, 1000);
+    }
+
+    var code;
+
+
+
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+    // document.getElementById("btn").disabled = false;
+    //
+    // function time(o) {
+    //     if (wait == 0) {
+    //         o.removeAttribute("disabled");
+    //         o.value = "获取验证码";
+    //         wait = 60;
+    //     } else {
+    //         o.setAttribute("disabled", true);
+    //         o.value = "重新发送(" + wait + ")";
+    //         wait--;
+    //         setTimeout(function () {
+    //                 time(o)
+    //             },
+    //             1000)
+    //     }
+    // }
+    //
+    // document.getElementById("btn").οnclick = function () {
+    //     time(this);
+    // }
+</script>
+</html>

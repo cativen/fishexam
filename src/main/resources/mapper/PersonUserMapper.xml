@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fishexam.mapper.PersonUserMapper">
+
+  <select id="selectPerson" resultType="com.fishexam.mapper.PersonUserMapper">
+    select * from person_user;
+  </select>
+  <select id="selectPasswordByName" resultType="java.lang.String">
+    select user_password from person_user where user_username=#{user_username};
+  </select>
+  <select id="selectPasswordByNameEmailPhone" resultType="java.lang.String">
+    select user_password from person_user where user_username=#{user_username} or user_phone=#{user_username} or user_email=#{user_username} limit 1;
+  </select>
+
+</mapper>

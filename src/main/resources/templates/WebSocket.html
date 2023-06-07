@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"></meta>
+    <title>Title</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+</head>
+<body>
+<div id="chat">
+
+    <div id="chatsContent"></div>
+</div>
+<div>
+    请输入聊天内容:
+    <input type="text" id="content" placeholder="聊天内容">
+    目标用户:
+    <input type="text" id="to" placeholder="目标用户">
+    <button id="send" type="button">发送</button>
+</div>
+
+</body>
+<script>
+    var stompClient = null;
+
+    function connent() {
+        var socket = new SockJS('/chat');
+        stompClient = Stomp.over(socket);
+        stompClient.connect({}, function (frame) {
+            stompClient.subscribe('/user/queue/chat', function (chat) {
+                showGreeting(JSON.parse(chat.body))
+            });
+        });
+    }
+
+    function sendMsg() {
+        stompClient.send("/app/chat", {},
+            JSON.stringify({'content': $("#content").val(), 'to': $("#to").val()}));
+    }
+
+    function showGreeting(message) {
+        $("#chatsContent")
+            .append("<div>" + message.from + ":" + message.content + "</div>");
+    }
+
+    $(function () {
+        connent();
+        $("#send").click(function () {
+            sendMsg();
+        })
+    })
+</script>
+</html>

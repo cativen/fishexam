@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fishexam.mapper.PetsUserMapper">
+    <resultMap id="pets" type="com.fishexam.pojo.PetsUserPojo">
+        <id column="pets_id" property="petsid"/>
+        <result column="pets_number" property="number"/>
+        <result column="pets_name" property="name"/>
+        <result column="pets_gender" property="gender"/>
+        <result column="pets_status" property="status"/>
+        <result column="pets_datatime" property="date"/>
+        <result column="pets_bed" property="bed"/>
+        <result column="pets_age" property="age"/>
+        <result column="pets_names" property="names"/>
+    </resultMap>
+    <insert id="insterIntoPet">
+        insert into pets_user (pets_number,pets_name,pets_names,pets_age,pets_status,pets_datatime,pets_gender,pets_bed)
+         values (#{number},#{name},#{names},#{age},#{status},#{daterangepicker},#{gender},#{bed})
+    </insert>
+    <select id="selectPets" resultMap="pets">
+        select * from pets_user
+    </select>
+    <select id="selectPetsByDate" resultMap="pets">
+        select * from pets_user where pets_datatime >= #{date}
+    </select>
+
+</mapper>

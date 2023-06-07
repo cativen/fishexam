@@ -1,0 +1,27 @@
+===============
+   目录说明
+===============
+
+./dist/           目录下是经过压缩后的代码（包括LayIM）
+./laymi/ 目录下是本地版演示代码，laymi框架请部署到localhost上查看该演示,点击index.html，使用命令打开，不要直接点击打开
+./laymi+php/ 因laymi为前端框架，特附赠php版本的完整版项目，详细说明查看目录内的README.md
+./src/   目录下Layui源代码（包括LayIM的源代码，标准版无此目录）
+
+===============
+   搭配自己项目的使用说明
+===============
+
+LayIM基于layui模块体系，因此你获得的其实是一个包含LayIM的layui框架，不同的是，开源版的layui并不包含LayIM。捐助后，将您获得的压缩包解压，将layui整个目录文件放入你的项目后，不用再对其代码做任何修改（方便下次升级）。然后您只需引入下述两个文件即可。
+
+./dist/css/layui.css
+./dist/layui.js
+
+
+===============
+   官网文档
+===============
+
+官网：http://layim.layui.com/
+接口文档：http://www.layui.com/doc/layim.html
+授权通道：http://layim.layui.com/#getAuth
+

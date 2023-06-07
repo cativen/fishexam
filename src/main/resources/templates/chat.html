@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+</head>
+<body>
+<div>
+    <label for="name">请输入用户名:</label>
+    <input type="text" id="name" placeholder="用户名">
+</div>
+<div>
+    <button id="connect" type="button">连接</button>
+    <button id="disconnect" type="button" disabled="disabled">断开连接</button>
+</div>
+<div id="chat" style="display: none">
+    <label for="name">请输入聊天内容</label>
+    <input type="text" id="content" placeholder="聊天内容">
+</div>
+<button id="send" type="button">发送</button>
+<div id="greetings">
+    <div id="conversation" style="display: none"></div>
+</div>
+<script>
+    var stompClient = null;
+
+    function setConnected(connected) {
+        $("#connect").prop("disabled", connected);
+        $("#disconnect").prop("disabled", !connected);
+        if (connected) {
+            $("#conversation").show();
+            $("#chat").show();
+        } else {
+            $("#conversation").hide();
+            $("#chat").hide();
+        }
+        $("#greetings").html("");
+    }
+
+    function connect() {
+        if (!$("#name").val()) {
+            return;
+        }
+        var socket = new SockJS('/chat');
+        stompClient = Stomp.over(socket);
+        stompClient.connect({}, function (frame) {
+            setConnected(true);
+            stompClient.subscribe('/topic/greetings', function (greeting) {
+                showGreeting(JSON.parse(greeting.body));
+            });
+        });
+    }
+
+    function disconnect() {
+        if (stompClient !== null) {
+            stompClient.disconnect();
+        }
+        setConnected(false);
+    }
+
+    function sendName() {
+        stompClient.send("/app/hello", {}, JSON.stringify({'name': $("#name").val(), 'content': $("#content").val()}));
+
+    }
+
+    function showGreeting(message) {
+        $("#greetings")
+            .append("<div>" + message.name + ":" + message.content + "</div>");
+    }
+
+    $(function () {
+        $("#connect").click(function () {
+            connect();
+        });
+        $("#disconnect").click(function () {
+            disconnect();
+        });
+        $("#send").click(function () {
+            sendName();
+        });
+    })
+</script>
+</body>
+</html>
