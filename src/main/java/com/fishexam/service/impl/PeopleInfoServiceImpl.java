@@ -60,8 +60,8 @@ public class PeopleInfoServiceImpl extends ServiceImpl<PeopleInfoMapper, PeopleI
     private Logger logger= LoggerFactory.getLogger(PetsController.class);
 
     // 发件人的 邮箱 和 密码（替换为自己的邮箱和密码）
-    public static String myEmailAccount = "upcoding@163.com";
-    public static String myEmailPassword = "ZXVGZRONGFCHJXBW";
+    public static String myEmailAccount = "@163.com";
+    public static String myEmailPassword = "";
     // 发件人邮箱的 SMTP 服务器地址, 必须准确, 不同邮件服务器地址不同, 一般格式为: smtp.xxx.com
     // 网易163邮箱的 SMTP 服务器地址为: smtp.163.com
     public static String myEmailSMTPHost = "smtp.163.com";
